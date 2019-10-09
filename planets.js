@@ -20,10 +20,42 @@ d3.select("#A2")
 var planetPro = d3.json("planets.json")
 
 planetPro.then(function(pData){
-    d3.select("h1").text("you played yourself")
     console.log("pData", pData);
+    return planet(pData), nameList(pData), emptyTable(pData)
 },
     function(yikes){
-    d3.select("h1").text("Big Yikes")
     console.log("Big Yikes", yikes);
 });
+
+var planet = function(pData){
+    d3.select("#B3")
+    .selectAll("img")
+    .data(pData)
+    .enter()
+    .append("img")
+    .attr("src", function(d){
+        return d.img;
+    })
+}
+
+var nameList = function(pData){ 
+    d3.select("#B4")
+    .append("ol")
+    .selectAll("li")
+    .data(pData)
+    .enter()
+    .append("li")
+    .text(function(d)
+         {return d.name;})
+}
+
+
+var emptyTable = function(pData){ 
+    d3.select("#C1")
+    .append("table")
+    .selectAll("tr")
+    .data(pData)
+    .enter()
+    .append("tr")
+    
+}
